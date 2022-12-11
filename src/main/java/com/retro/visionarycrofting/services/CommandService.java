@@ -17,5 +17,6 @@ public interface CommandService {
 
     Command  updateCommend(Command command , long id);
 
+    Command findByRef(String commandRef);
 
 }

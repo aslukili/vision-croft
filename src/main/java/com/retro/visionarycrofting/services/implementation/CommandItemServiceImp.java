@@ -1,11 +1,14 @@
 package com.retro.visionarycrofting.services.implementation;
 
+import com.retro.visionarycrofting.entities.Command;
 import com.retro.visionarycrofting.entities.CommandItem;
 import com.retro.visionarycrofting.entities.Product;
 import com.retro.visionarycrofting.repositories.CommandItemRepository;
 import com.retro.visionarycrofting.services.CommandItemService;
+import com.retro.visionarycrofting.services.CommandService;
 import com.retro.visionarycrofting.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,11 +21,13 @@ public class CommandItemServiceImp implements CommandItemService {
 
   private final CommandItemRepository commandItemRepository;
   private final ProductService productService;
+  private final CommandService commandService;
 
   @Autowired
-  public CommandItemServiceImp(CommandItemRepository commandItemRepository, ProductService productService) {
+  public CommandItemServiceImp(CommandItemRepository commandItemRepository, ProductService productService,@Lazy CommandService commandService) {
     this.commandItemRepository = commandItemRepository;
     this.productService = productService;
+    this.commandService = commandService;
   }
 
   @Override
@@ -84,6 +89,13 @@ public class CommandItemServiceImp implements CommandItemService {
       commandItemToUpdate.setPrix(prix);
     }
   }
+
+  public Optional<List<CommandItem>> findCommandItemsByCommand(String commandRef){
+    // TODO check if the provided command exists in the db before calling the repository
+    Command command = commandService.findByRef(commandRef);
+    return commandItemRepository.findCommandItemsByCommand(command);
+  }
+
 
   // can be moved to the model
   @Override

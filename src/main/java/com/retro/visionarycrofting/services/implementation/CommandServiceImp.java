@@ -91,4 +91,9 @@ public class CommandServiceImp implements CommandService {
         return commandRepository.save(Cmd);
     }
 
+
+    public Command findByRef(String commandRef){
+      return commandRepository.findByRef(commandRef);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.retro.visionarycrofting.ressources;
 
 
+import com.retro.visionarycrofting.entities.Command;
 import com.retro.visionarycrofting.entities.CommandItem;
 import com.retro.visionarycrofting.entities.Product;
 import com.retro.visionarycrofting.services.CommandItemService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "api/v1/command-items")
@@ -25,6 +27,11 @@ public class CommandItemResource {
   @GetMapping
   public List<CommandItem> getCommandItems(){
     return commandItemService.getCommandItems();
+  }
+
+  @GetMapping(path = "{command}")
+  public Optional<List<CommandItem>> getCommandItemsByCommand(@PathVariable("command")String commandRef){
+    return commandItemService.findCommandItemsByCommand(commandRef);
   }
 
   @PostMapping

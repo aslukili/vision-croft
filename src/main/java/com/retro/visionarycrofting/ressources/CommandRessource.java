@@ -16,7 +16,6 @@ public class CommandRessource {
         this.commandService = commandService;
     }
 
-
     @GetMapping
     public List<Command>  getCommands(){
         return commandService.getCommands();
@@ -26,7 +25,6 @@ public class CommandRessource {
     public  Command addCommand(@RequestBody Command command){
         return  commandService.AddCommand(command);
     }
-
 
     @DeleteMapping(path = "Commands/{id}")
     public String  deleteById(@PathVariable("id") Long id){
@@ -38,8 +36,4 @@ public class CommandRessource {
     public Command  updateCommend(@RequestBody Command command , long id){
         return commandService.updateCommend(command , id);
     };
-
-
-
-
 }
