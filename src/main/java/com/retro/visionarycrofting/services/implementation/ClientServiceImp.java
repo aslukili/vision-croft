@@ -73,5 +73,10 @@ public class ClientServiceImp implements ClientService {
         return clientRepository.findClientByEmail(email);
     }
 
+  @Override
+  public Client findByUsername(String username) {
+    return clientRepository.findByUserName(username);
+  }
+
 
 }

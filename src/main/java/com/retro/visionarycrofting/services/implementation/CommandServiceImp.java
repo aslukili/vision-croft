@@ -3,7 +3,6 @@ package com.retro.visionarycrofting.services.implementation;
 import com.retro.visionarycrofting.entities.Client;
 import com.retro.visionarycrofting.entities.Command;
 import com.retro.visionarycrofting.entities.CommandItem;
-import com.retro.visionarycrofting.entities.Product;
 import com.retro.visionarycrofting.repositories.CommandRepository;
 import com.retro.visionarycrofting.services.ClientService;
 import com.retro.visionarycrofting.services.CommandItemService;
@@ -28,6 +27,8 @@ public class CommandServiceImp implements CommandService {
     }
 
 
+
+
     @Override
     public List<Command> getCommands() {
         return commandRepository.findAll();
@@ -47,7 +48,6 @@ public class CommandServiceImp implements CommandService {
       Optional<Client> client = clientService.findById(command.getClient().getId());
 
       command.setClient(client.orElseThrow(IllegalStateException::new));
-
 
       // save command,
       commandRepository.save(command);
@@ -95,5 +95,13 @@ public class CommandServiceImp implements CommandService {
     public Command findByRef(String commandRef){
       return commandRepository.findByRef(commandRef);
     }
+
+  @Override
+  public List<Command> getCommandsByClientUsername(String username) {
+    // find the client using its username:
+    // TODO: make the following client optional!
+    Client client = clientService.findByUsername(username);
+    return commandRepository.findByClient(client);
+  }
 
 }

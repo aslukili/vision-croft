@@ -19,4 +19,5 @@ public interface CommandService {
 
     Command findByRef(String commandRef);
 
+  List<Command> getCommandsByClientUsername(String username);
 }

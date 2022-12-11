@@ -2,6 +2,7 @@ package com.retro.visionarycrofting.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +25,6 @@ public class Command implements Serializable {
   @OneToMany(mappedBy = "command", orphanRemoval = true)
   private List<CommandItem> commandItems = new ArrayList<>();
 
-
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "client_id")
   private Client client;
@@ -34,10 +34,10 @@ public class Command implements Serializable {
     return client;
   }
 
+  @JsonProperty
   public void setClient(Client client) {
     this.client = client;
   }
-
 
   public List<CommandItem> getCommandItems() {
     return commandItems;
