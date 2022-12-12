@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "commands")
+@RequestMapping
 public class CommandRessource {
 
     private final CommandService commandService;
@@ -21,7 +21,7 @@ public class CommandRessource {
     @GetMapping(path = "users/{username}/commands")
     public String getCommands(Model model, @PathVariable("username") String username){
         model.addAttribute("commands", commandService.getCommandsByClientUsername(username));
-        return "commands";
+        return "index";
     }
 
     @PostMapping
