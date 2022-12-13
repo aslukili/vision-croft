@@ -3,6 +3,7 @@ package com.retro.visionarycrofting.services;
 import com.retro.visionarycrofting.entities.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -31,4 +32,6 @@ public interface ProductService {
     public Product save(Product product, String name);
 
     public Product update(Product product);
+
+  Product getProductById(Long id);
 }

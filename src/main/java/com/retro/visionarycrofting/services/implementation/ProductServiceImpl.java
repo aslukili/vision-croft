@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -110,4 +111,9 @@ public class ProductServiceImpl implements ProductService {
         if(this.getOne(product.getId()) == null) return null;
         return productDao.save(product);
     }
+
+  @Override
+  public Product getProductById(Long id) {
+      return productDao.findProductById(id);
+  }
 }
