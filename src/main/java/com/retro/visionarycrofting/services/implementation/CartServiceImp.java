@@ -26,7 +26,7 @@ public class CartServiceImp implements CartService {
 
   @Override
   public Cart getShoppingCartBySessionToken(String sessionToken) {
-    return null;
+    return shoppingCartRepository.findCartBySessionToken(sessionToken);
   }
 
   @Override

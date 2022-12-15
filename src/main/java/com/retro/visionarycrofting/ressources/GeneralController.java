@@ -18,7 +18,7 @@ public class GeneralController {
   private ProductService productService;
   @ModelAttribute
   public void populateModel(Model model, HttpServletRequest request) {
-    String sessionToken = (String) request.getSession(true).getAttribute("sessiontToken");
+    String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
     if(sessionToken == null) {
       model.addAttribute("shoppingCart", new Cart());
     }

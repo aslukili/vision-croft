@@ -27,11 +27,11 @@ public class CartController {
     @RequestParam("id") Long id,
     @RequestParam("quantity") int quantity) {
 
-    // sessiontToken
-    String sessionToken = (String) request.getSession(true).getAttribute("sessiontToken");
+    // session Token
+    String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
     if (sessionToken == null) {
       sessionToken = UUID.randomUUID().toString();
-      request.getSession().setAttribute("sessiontToken", sessionToken);
+      request.getSession().setAttribute("sessionToken", sessionToken);
       cartService.addShoppingCartFirstTime(id, sessionToken, quantity);
     } else {
       cartService.addToExistingShoppingCart(id, sessionToken, quantity);
@@ -39,7 +39,7 @@ public class CartController {
     return "redirect:/";
   }
 
-  @GetMapping("/shoppingCart")
+  @GetMapping("/shopping-cart")
   public String showShoopingCartView(HttpServletRequest request, Model model) {
     return "shopping-cart";
   }
@@ -47,7 +47,7 @@ public class CartController {
   // TODO front-end
   @GetMapping("/removeCartItem/{id}")
   public String removeItem(@PathVariable("id") Long id, HttpServletRequest request) {
-    String sessionToken = (String) request.getSession(false).getAttribute("sessiontToken");
+    String sessionToken = (String) request.getSession(false).getAttribute("sessionToken");
     System.out.println("got here ");
     cartService.removeCartIemFromShoppingCart(id,sessionToken);
     return "redirect:/shoppingCart";
@@ -56,8 +56,8 @@ public class CartController {
   //TODO front-end
   @GetMapping("/clearShoppingCart")
   public String clearShoopiString(HttpServletRequest request) {
-    String sessionToken = (String) request.getSession(false).getAttribute("sessiontToken");
-    request.getSession(false).removeAttribute("sessiontToken");
+    String sessionToken = (String) request.getSession(false).getAttribute("sessionToken");
+    request.getSession(false).removeAttribute("sessionToken");
     cartService.clearShoppingCart(sessionToken);
     return "redirect:/shoppingCart";
   }

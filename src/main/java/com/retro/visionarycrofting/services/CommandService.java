@@ -11,7 +11,7 @@ public interface CommandService {
 
     List<Command> getCommands();
 
-    Command AddCommand(Command command);
+    Command AddCommand(Command command, String sessionToken);
 
     void  deleteById(long id);
 

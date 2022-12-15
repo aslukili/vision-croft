@@ -1,21 +1,24 @@
 package com.retro.visionarycrofting.ressources;
 
 import com.retro.visionarycrofting.entities.Command;
+import com.retro.visionarycrofting.services.CartService;
 import com.retro.visionarycrofting.services.CommandService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping
 public class CommandRessource {
 
     private final CommandService commandService;
+    private final CartService cartService;
 
-    public CommandRessource(CommandService commandService) {
+    public CommandRessource(CommandService commandService, CartService cartService) {
         this.commandService = commandService;
+      this.cartService = cartService;
     }
 
     @GetMapping(path = "users/{username}/commands")
@@ -24,11 +27,17 @@ public class CommandRessource {
         return "index";
     }
 
-    @PostMapping
-    public  Command addCommand(@RequestBody Command command){
-      System.out.println(command);
-        return  commandService.AddCommand(command);
+
+    // all we need from the client is the session id, and we will set the client manually for now:
+    @PostMapping("/add-command")
+    public  String addCommand(HttpServletRequest request, Model model){
+      String sessionToken = (String) request.getSession(true).getAttribute("sessionToken");
+      // get cart by session id
+      commandService.AddCommand(new Command(), sessionToken);
+      return  "redirect:/";
     }
+
+    //
 
     @DeleteMapping(path = "commands/{id}")
     public String  deleteById(@PathVariable("id") Long id){
